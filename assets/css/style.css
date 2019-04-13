@@ -1,8 +1,7 @@
-.main-section {
-    background-color: blue;
+#main-section {
+  background-color: aqua
 }
 
-.game-main{
-    background-color: yellow;
-
+#game-main {
+  background-color: red
 }

@@ -1,5 +1,6 @@
-$('#start').on('click', function(){
+$('#start').on('click',function(){
     game.start();
+    console.log('start')
 })
 $(document).on("click","#end", function(){
     game.done();
@@ -47,26 +48,21 @@ var game = {
         game.counter--;
         $('#counter').html(game.counter); 
         if(game.counter < 0){
-        console.log('time is up');
+        // console.log('time is up');
         game.done();    
         }
     },
-    
-    start: function(){
-        timer = setInterval(game.countdown,1000);
+    start: function (){ 
+        timer = setInterval(game.countdown,1000); 
         $('#game-main').prepend('<h2>Time Remaining: <span id="counter">120</span> Seconds</h2>');
-        $('#start').on('click', function(){
-            $('#start').remove();
-            for(var i=0;i<questions.length; i++){
-                $('#game-main').append('<h2>'+questions[i].question+ '</h2>');
-                for(var j=0;j<questions[i].answers.length; j++){
-                $('#game-main').append("<input type='radio' name='question-" +i+"' value= '"+questions[i].answers[j]+"'>"+questions[i].answers[j]);
-                }
+        $('#start').remove();
+        for(var i=0;i<questions.length;i++){
+            $('#game-main').append('<h2>'+questions[i].question+'</h2>');
+            for (var j=0;j,questions[i].answers.length;j++){
+                $('#game-main').append("<input type='radio' name='question-"+i+"' value='"+questions[i].answers[j]+"'>"+questions[i].answers[j])
             }
-        })
-            $('#game-main').append('<br><button id="end">All Done</button>');
+        }
     },
-
     done: function(){
         $.each($('input[name="question-0]":checked'),function(){
             if ($(this).val()==questions[0].correctAnswer){
@@ -124,27 +120,17 @@ var game = {
                     game.incorrect++;
             }
     });
-    
     this.result();
     },
 
     result: function(){
         clearInterval(timer);
-        $('#game-main h2').remove();
-    }
-
-        $('#game-main').html("<h2>Time's Up!</h2>")
-        $('#game-main').append("<h3>Correct Answers: "+this.correct+"</h3>")
-        $('#game-main').append("<h3>Incorrect Answers: "+this.incorrect+"</h3>")
-        $('#game-main').append("<h3>Unanswered: ")+(questions.length-(this.incorrect+this.correct))+"</h3>"
-    
+        ('#game-main h2').remove();
+        ('#game-main').html("<h2>Game Over!</h2>");
+        ('#game-main').append("<h3>Correct Answers: "+this.correct+"</h3>");
+        ('#game-main').append("<h3>Inorrect Answers: "+this.incorrect+"</h3>");
+        ('#game-main').append("<h3>Unanswered: "+(questions.length-(this.incorrect+this.correct))+"</h3>");
     }
 
 
-
-// Psuedocode - different things to make this work
-// game fuctions - timer, count, done/over function
-// results to the questions 
-// results/score
-// clear the timer
-// append the text based on answers right/wrong/unanswered
+}
